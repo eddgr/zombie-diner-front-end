@@ -6,7 +6,10 @@ import { createStore } from 'redux'
 import gameReducer from './Reducers/gameReducer'
 
 
-const store = createStore(gameReducer)
+const store = createStore(
+  gameReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 ReactDOM.render(
   <Provider store ={store}>

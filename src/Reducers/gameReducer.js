@@ -5,7 +5,8 @@ const limbs = { id: 4, name: 'limbs', image: 'assets/limbs.svg'  }
 
 const initialState = {
   gameTimer: 60,
-  ingredients: [brains, eyes, organs, limbs],
+  // ingredients: [brains, eyes, organs, limbs],
+  ingredients: [],
   orders: [
     { id: 1,
       name: 'brainsanwich',
@@ -80,6 +81,11 @@ function gameReducer( state = initialState, action ){
         ...state,
         orders: filterOrder,
         plate: []
+      }
+    case "SET_INGREDIENTS":
+      return {
+        ...state,
+        ingredients: action.ingredients
       }
     default:
       return state
