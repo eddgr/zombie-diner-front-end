@@ -6,25 +6,27 @@ class GameContainer extends React.Component{
   generateArr = (arr) => {
     return arr.map( (item) => {
       return(
-        <li
+        <div
+          className="col-3 text-center"
           key={item.id}
           id={item.id}
           >
-          {item.name}
-        </li>
+          <img src={item.image} alt={item.name} width="100%" />
+        </div>
       )
     })
   }
   //can add onclicks and extract out maps
   generateIngredientsArr = (arr) => {
-    return arr.map( (item) => {
+    return arr.map(item => {
       return(
-        <li
+        <div
+          className="col-3 text-center"
           key={item.id}
           id={item.id}
           onClick={() => this.props.addPlate(item)}>
-          {item.name}
-        </li>
+          <img src={item.image} alt={item.name} width="100%" />
+        </div>
       )
     })
   }
@@ -36,29 +38,36 @@ class GameContainer extends React.Component{
     const {ingredients, orders, plate } = this.props.state
 
     return(
-    <div>
-      from game container
-      <div>
-        <ul id="orders">
+      <div className="container">
+        <div className="row justify-content-center">
+          from game container
+        </div>
+
+        <div className="row justify-content-center">
+          <h2 className="col-sm-12 text-center">ORDERS</h2>
           {this.generateArr(orders)}
-        </ul>
-      </div>
+        </div>
 
-      <div>
-        <ul id="ingredients">
+        <div className="row justify-content-center">
+          <h2 className="col-sm-12 text-center">INGREDIENTS</h2>
           {this.generateIngredientsArr(ingredients)}
-        </ul>
-      </div>
+        </div>
 
-      <div>
-        <ul id="plate">
-          PLATE
+        <div className="row justify-content-center">
+          <h2 className="col-sm-12 text-center">PLATE</h2>
           {this.generateArr(plate)}
-        </ul>
-        <button onClick={() => this.props.servePlate(plate)}>Serve</button>
-      </div>
 
-    </div>
+          <div className="col-sm-12 text-center">
+            <button
+              className="btn btn-primary"
+              onClick={() => this.props.servePlate(plate)}>
+              Serve
+            </button>
+          </div>
+
+        </div>
+
+      </div>
 
     )
   }
