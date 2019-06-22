@@ -59,26 +59,26 @@ class GameContainer extends React.Component{
     return(
       <div className="container">
         <div className="row justify-content-center">
-          from game container
+          <img src="assets/logo.png" alt="Zombie Diner" width="177px" height="32px" />
         </div>
 
-        <div className="row justify-content-center">
+        <div className="mt-4 row justify-content-center">
           <h2 className="col-sm-12 text-center">ORDERS</h2>
           {this.generateArr(this.state.recipes)}
         </div>
 
-        <div className="row justify-content-center">
+        <div className="mt-4 row justify-content-center">
           <h2 className="col-sm-12 text-center">INGREDIENTS</h2>
           {this.generateIngredientsArr(ingredients)}
         </div>
 
-        <div className="row justify-content-center">
+        <div className="mt-4 row justify-content-center">
           <h2 className="col-sm-12 text-center">PLATE</h2>
           {this.generateArr(plate)}
 
           <div className="col-sm-12 text-center">
             <button
-              className="btn btn-primary"
+              className="mt-4 btn-lg btn-danger"
               onClick={() => this.props.servePlate(plate)}>
               Serve
             </button>
