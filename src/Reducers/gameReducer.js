@@ -1,7 +1,7 @@
-const brains = { id: 1, name: 'brains' }
-const eyes = { id: 2, name: 'eyes' }
-const organs = { id: 3, name: 'organs' }
-const limbs = { id: 4, name: 'limbs' }
+const brains = { id: 1, name: 'brains', image: 'assets/brains.svg' }
+const eyes = { id: 2, name: 'eyes', image: 'assets/eyes.svg' }
+const organs = { id: 3, name: 'organs', image: 'assets/organs.svg'  }
+const limbs = { id: 4, name: 'limbs', image: 'assets/limbs.svg'  }
 
 const initialState = {
   gameTimer: 60,
@@ -32,20 +32,16 @@ function gameReducer( state = initialState, action ){
 
   switch (action.type) {
     case 'START_GAME':
-    // console.log('start game', state)
       return {
         ...state,
         startGame: true
       }
     case 'ADD_PLATE':
       //remove item from ingredients,
-
       const ingredientsCopy = [...state.ingredients]
       const filteredIngredient = ingredientsCopy.filter( ingredient => {return ingredient.id !== action.ingredient.id})
-      // console.log(filteredIngredient);      // add item to plate
+      // add item to plate
       const plateCopy = [...state.plate, action.ingredient]
-      console.log(plateCopy);
-      console.log('adding to plate')
       return { ...state,
         ingredients: filteredIngredient,
         plate: plateCopy
@@ -79,7 +75,6 @@ function gameReducer( state = initialState, action ){
           return order.id !== thisOrder.id
         })
       }
-
 
       return {
         ...state,
