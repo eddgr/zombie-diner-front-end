@@ -65,20 +65,29 @@ function gameReducer( state = initialState, action ){
       //sorted the plate ingredients
 
       const thisOrder = matchedOrders.find(order => {
-        // debugger
         const orderIds = order.ingredients.map(ingredient=> ingredient.id).join()
         const plateIds = sortPlate.map(ingredient=> ingredient.id).join()
-        return orderIds === plateIds
+
+        // if orderIds and plateIds match, return it otherwise return false
+        if (orderIds === plateIds) {
+          return orderIds === plateIds
+        } else {
+          return false
+        }
       })
 
-      const orderCopy = [...state.orders].filter( order => {
-        return order.id !== thisOrder.id
-      })
-      console.log('am i right?', thisOrder)
+      let filterOrder = [...state.orders]
+
+      if (thisOrder) {
+        filterOrder = [...state.orders].filter( order => {
+          return order.id !== thisOrder.id
+        })
+      }
+
 
       return {
         ...state,
-        orders: orderCopy,
+        orders: filterOrder,
         plate: []
       }
     default:
