@@ -40,6 +40,7 @@ class GameContainer extends React.Component{
           PLATE
           {this.generateArr(plate)}
         </ul>
+        <button onClick={() => this.props.servePlate(plate)}>Serve</button>
       </div>
 
     </div>
@@ -56,8 +57,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-  addPlate: ingredient => dispatch({
+    addPlate: ingredient => dispatch({
       type: 'ADD_PLATE', payload:ingredient
+    }),
+    servePlate: plate => dispatch({
+      type: 'SERVE_PLATE', payload: plate
     })
   }
 }

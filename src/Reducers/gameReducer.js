@@ -1,16 +1,25 @@
+const brains = { id: 1, name: 'brains' }
+const eyes = { id: 2, name: 'eyes' }
+const organs = { id: 3, name: 'organs' }
+const limbs = { id: 4, name: 'limbs' }
+
 const initialState = {
   gameTimer: 60,
-  ingredients: [
-    { id: 1, name: 'brains' },
-    { id: 2, name: 'eyes' },
-    { id: 3, name: 'organs' },
-    { id: 4, name: 'limbs' }
-    ],
+  ingredients: [brains, eyes, organs, limbs],
   orders: [
-    { id: 1, name: 'brainsanwich' },
-    { id: 2, name: 'eyeburger' },
-    { id: 3, name: 'spagehttieyesworgans' },
-    { id: 4, name: 'limbkabab' }
+    { id: 1,
+      name: 'brainsanwich',
+      ingredients: [brains]
+    },
+    { id: 2,
+      name: 'eyeburger',
+      ingredients: [eyes, organs] },
+    { id: 3,
+      name: 'spagehttieyesworgans',
+      ingredients: [organs] },
+    { id: 4,
+      name: 'limbkabab',
+      ingredients: [limbs, brains, eyes] }
   ],
   plate: [],
   score: '',
@@ -20,7 +29,7 @@ const initialState = {
 
 }
 
-function gameReducer( state = initialState, action){
+function gameReducer( state = initialState, action ){
 
   switch (action.type) {
     case 'START_GAME':
@@ -51,6 +60,20 @@ function gameReducer( state = initialState, action){
         ingredients: filteredIngredient,
         plate: plateCopy
       }
+    case 'SERVE_PLATE':
+      console.log('SERVE_PLATE')
+      // match by length
+      const matchedPlate = state.orders.filter(order => order.ingredients.length === action.payload.length)
+
+      console.log('matchedPlate', matchedPlate)
+      //goes through each order array and check the ingredients against what we have on the plate
+      // we want a boolean return that makes sure all ingredient items are included, no extra should be present
+      // .some returns boolean
+      // remove order from orders
+
+      // debugger
+
+      return state
     default:
       return state
   }
