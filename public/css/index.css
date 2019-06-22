@@ -1,0 +1,11 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bangers', cursive;
+}
+
+body {
+  font-family: 'Oswald', sans-serif;
+}
+
+button {
+  text-transform: uppercase;
+}
