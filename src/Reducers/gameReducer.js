@@ -38,26 +38,22 @@ function gameReducer( state = initialState, action ){
         startGame: true
       }
     case 'ADD_PLATE':
-
       //remove item from ingredients,
+
       const ingredientsCopy = [...state.ingredients]
-      const filteredIngredient = ingredientsCopy.filter( ingredient => {return ingredient.id !== action.payload.id})
-      // console.log(filteredIngredient);
-
-      // add item to plate
-      const plateCopy = [...state.plate, action.payload]
+      const filteredIngredient = ingredientsCopy.filter( ingredient => {return ingredient.id !== action.ingredient.id})
+      // console.log(filteredIngredient);      // add item to plate
+      const plateCopy = [...state.plate, action.ingredient]
       console.log(plateCopy);
-
-
       console.log('adding to plate')
       return { ...state,
         ingredients: filteredIngredient,
         plate: plateCopy
-      }
+        }
     case 'SERVE_PLATE':
       console.log('SERVE_PLATE')
       // match by length
-      const matchedOrders = state.orders.filter(order => order.ingredients.length === action.payload.length)
+      const matchedOrders = state.orders.filter(order => order.ingredients.length === action.plate.length)
       //goes through each order array and check the ingredients against what we have on the plate
       // we want a boolean return that makes sure all ingredient items are included, no extra should be present
         // .some returns boolean

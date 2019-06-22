@@ -9,12 +9,27 @@ class GameContainer extends React.Component{
         <li
           key={item.id}
           id={item.id}
+          >
+          {item.name}
+        </li>
+      )
+    })
+  }
+  //can add onclicks and extract out maps
+  generateIngredientsArr = (arr) => {
+    return arr.map( (item) => {
+      return(
+        <li
+          key={item.id}
+          id={item.id}
           onClick={() => this.props.addPlate(item)}>
           {item.name}
         </li>
       )
     })
   }
+  //extracted out generateIngredientsArr
+
 
   render(){
 
@@ -23,20 +38,20 @@ class GameContainer extends React.Component{
     return(
     <div>
       from game container
-      <div id="orders">
-        <ul>
+      <div>
+        <ul id="orders">
           {this.generateArr(orders)}
         </ul>
       </div>
 
-      <div id="ingredients">
-        <ul>
-          {this.generateArr(ingredients)}
+      <div>
+        <ul id="ingredients">
+          {this.generateIngredientsArr(ingredients)}
         </ul>
       </div>
 
-      <div id="plate">
-        <ul>
+      <div>
+        <ul id="plate">
           PLATE
           {this.generateArr(plate)}
         </ul>
@@ -58,10 +73,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addPlate: ingredient => dispatch({
-      type: 'ADD_PLATE', payload:ingredient
+      type: 'ADD_PLATE', ingredient: ingredient
     }),
     servePlate: plate => dispatch({
-      type: 'SERVE_PLATE', payload: plate
+      type: 'SERVE_PLATE', plate: plate
     })
   }
 }
