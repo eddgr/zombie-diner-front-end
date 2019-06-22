@@ -1,7 +1,17 @@
 const initialState = {
   gameTimer: 60,
-  ingredients: ['brains','eyes', 'organs', 'limbs', 'brains','eyes', 'organs', 'limbs'],
-  orders: ['brainsanwich', "eyeburger", "spagehttieyesworgans", "limbkabab" ],
+  ingredients: [
+    { id: 1, name: 'brains' },
+    { id: 2, name: 'eyes' },
+    { id: 3, name: 'organs' },
+    { id: 4, name: 'limbs' }
+    ],
+  orders: [
+    { id: 1, name: 'brainsanwich' },
+    { id: 2, name: 'eyeburger' },
+    { id: 3, name: 'spagehttieyesworgans' },
+    { id: 4, name: 'limbkabab' }
+  ],
   plate: [],
   score: '',
   bonusCounter: 0,
@@ -25,10 +35,22 @@ function gameReducer( state = initialState, action){
       //   ...state,
       //   plate: action.payload
       // }
-      //remove item from ingredients, add item to plate, generate new rand item in ingredients
-      
+
+      //remove item from ingredients,
+      const ingredientsCopy = [...state.ingredients]
+      const filteredIngredient = ingredientsCopy.filter( ingredient => {return ingredient.id !== action.payload.id})
+      // console.log(filteredIngredient);
+
+      // add item to plate
+      const plateCopy = [...state.plate, action.payload]
+      console.log(plateCopy);
+
+
       console.log('adding to plate')
-      return state
+      return { ...state,
+        ingredients: filteredIngredient,
+        plate: plateCopy
+      }
     default:
       return state
   }

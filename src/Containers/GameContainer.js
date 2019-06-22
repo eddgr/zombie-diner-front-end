@@ -6,8 +6,11 @@ class GameContainer extends React.Component{
   generateArr = (arr) => {
     return arr.map( (item) => {
       return(
-        <li onClick={() => this.props.addPlate(item)}>
-          {item}
+        <li
+          key={item.id}
+          id={item.id}
+          onClick={() => this.props.addPlate(item)}>
+          {item.name}
         </li>
       )
     })
@@ -34,6 +37,7 @@ class GameContainer extends React.Component{
 
       <div id="plate">
         <ul>
+          PLATE
           {this.generateArr(plate)}
         </ul>
       </div>
