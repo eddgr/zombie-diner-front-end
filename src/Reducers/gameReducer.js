@@ -19,14 +19,13 @@ const initialState = {
       ingredients: [organs] },
     { id: 4,
       name: 'limbkabab',
-      ingredients: [limbs, brains, eyes] }
+      ingredients: [brains, eyes, limbs] }
   ],
   plate: [],
   score: '',
   bonusCounter: 0,
   // bonusCounter needs 3, 3 star dishes to  add '15' seconds to the game timer
-  startGame: false,
-
+  startGame: false
 }
 
 function gameReducer( state = initialState, action ){
@@ -39,11 +38,6 @@ function gameReducer( state = initialState, action ){
         startGame: true
       }
     case 'ADD_PLATE':
-    // console.log('start game', state)
-      // return {
-      //   ...state,
-      //   plate: action.payload
-      // }
 
       //remove item from ingredients,
       const ingredientsCopy = [...state.ingredients]
@@ -63,12 +57,31 @@ function gameReducer( state = initialState, action ){
     case 'SERVE_PLATE':
       console.log('SERVE_PLATE')
       // match by length
-      const matchedPlate = state.orders.filter(order => order.ingredients.length === action.payload.length)
-
-      console.log('matchedPlate', matchedPlate)
+      const matchedOrders = state.orders.filter(order => order.ingredients.length === action.payload.length)
       //goes through each order array and check the ingredients against what we have on the plate
       // we want a boolean return that makes sure all ingredient items are included, no extra should be present
-      // .some returns boolean
+        // .some returns boolean
+      const sortPlate = state.plate.sort((a, b) => a.id - b.id)
+      //sorted the plate ingredients
+
+      const thisOrder = matchedOrders.find(order => {
+        // debugger
+        const orderIds = order.ingredients.map(ingredient=> ingredient.id).join()
+        const plateIds = sortPlate.map(ingredient=> ingredient.id).join()
+        // debugger
+        return orderIds === plateIds
+        // return Object.keys(order.ingredients).join() === Object.keys(sortPlate).join()
+        // return order.ingredients.join(", ") === sortPlate.join(", ")
+      })
+
+
+      // console.log('this is order', order.ingredients)
+      console.log('am i right?', thisOrder)
+      // console.log('sorted plate', sortPlate)
+
+      const plateBoo = state.plate.map(plate => {
+        // includes
+      })
       // remove order from orders
 
       // debugger
