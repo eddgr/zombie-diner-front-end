@@ -7,7 +7,6 @@ const ING_API = 'http://localhost:3001/ingredients'
 class GameContainer extends React.Component{
   state = {
     recipes: [],
-    ingredients: []
   }
   componentDidMount() {
     fetch(RECIPES_API)
@@ -18,7 +17,6 @@ class GameContainer extends React.Component{
     fetch(ING_API)
       .then(r => r.json())
       .then(ingredients => {
-        // this.setState({ ingredients })
         this.props.setIngredients(ingredients)
       })
   }
