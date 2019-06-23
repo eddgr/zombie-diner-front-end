@@ -92,6 +92,13 @@ function gameReducer( state = initialState, action ){
       }
     // end SET_FOODS
 
+    case "THROW_PLATE":
+      console.log("THROW_PLATE")
+      return {
+        ...state,
+        plate: []
+      }
+
     default:
       return state
   } // end switch
