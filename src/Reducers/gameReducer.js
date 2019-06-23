@@ -45,18 +45,16 @@ function gameReducer( state = initialState, action ){
       console.log('SERVE_PLATE')
       // match by length
       const matchedOrders = state.orders.filter(order =>{
-        return order.ingredients.length === action.plate.length
+        return order.recipe.ingredients.length === action.plate.length
       })
       //goes through each order array and check the ingredients against what we have on the plate
       // we want a boolean return that makes sure all ingredient items are included, no extra should be present
         // .some returns boolean
-      const sortPlate = state.plate.sort((a, b) => a.id - b.id)
+      const sortPlate = state.plate.sort((a, b) => a.ingredient_id - b.ingredient_id)
       //sorted the plate ingredients
-
       const thisOrder = matchedOrders.find(order => {
-        const orderIds = order.ingredients.map(ingredient=> ingredient.id).join()
-        const plateIds = sortPlate.map(ingredient=> ingredient.id).join()
-
+        const orderIds = order.recipe.ingredients.map(ingredient=> ingredient.id).join()
+        const plateIds = sortPlate.map(ingredient=> ingredient.ingredient_id).join()
         // if orderIds and plateIds match, return it otherwise return false
         if (orderIds === plateIds) {
           return orderIds === plateIds
