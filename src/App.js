@@ -44,8 +44,10 @@ class App extends React.Component {
           </React.Fragment>
         :
           <React.Fragment>
-            <h2 className="mt-4 text-danger text-center">Thanks for playing!</h2>
-            <a href="" className="btn btn-danger">PLAY AGAIN</a>
+            <h2 className="mt-4 text-danger text-center">Thanks for playing</h2>
+            <img src="assets/logo.png" alt="Zombie Diner" width="177px" height="32px" />
+            <br />
+            <a href="" className="mt-4 btn btn-danger">PLAY AGAIN</a>
           </React.Fragment>
         }
       </div>
