@@ -7,9 +7,17 @@ class IngredientsContainer extends React.Component{
   state = {
     activeIngredients: [{},{},{},{},{},{},{},{}]
   }
-  displayImage = () => {
+  generateItem = (ingredientsProps) => {
 
     let num = Math.floor(Math.random()*(3+1))
+    return [...this.state.activeIngredients].map(ingredient => (
+        <IngredientItem
+          ingredient={ingredientsProps[num]}
+         />
+        ))
+  }
+  displayImage = () => {
+
 
   }
   render(){
@@ -18,8 +26,7 @@ class IngredientsContainer extends React.Component{
     return(
     <div>
       THIS IS THE INGREDIENTS CONTAINER
-      {this.displayImage(this.props)}
-      <IngredientItem />
+      {this.generateItem(this.props.ingredients)}
     </div>
 
 

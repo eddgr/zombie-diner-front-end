@@ -3,6 +3,7 @@ import React from "react"
 
 
 function IngredientItem(props) {
+  console.log("ingredient item", props);
     return(
       <div>
         THIS IS THE INGREDIENT ITEM
