@@ -1,20 +1,17 @@
 import React from "react"
 // import IngredientsContainer from 'IngredientsContainer'
 import { connect } from "react-redux"
-const RECIPES_API = 'http://localhost:3001/recipes'
+const ORDERS_API = 'http://localhost:3001/recipes'
 
 
 const ING_API = 'http://localhost:3001/ingredients'
 
 class GameContainer extends React.Component{
-  state = {
-    recipes: [],
-  }
   componentDidMount() {
-    fetch(RECIPES_API)
+    fetch(ORDERS_API)
       .then(r => r.json())
-      .then(recipes => {
-        this.setState({ recipes })
+      .then(orders => {
+        this.props.setOrders(orders)
       })
     fetch(ING_API)
       .then(r => r.json())
@@ -66,7 +63,7 @@ class GameContainer extends React.Component{
 
         <div className="mt-4 row justify-content-center">
           <h2 className="col-sm-12 text-center">ORDERS</h2>
-          {this.generateArr(this.state.recipes)}
+          {this.generateArr(orders)}
         </div>
 
         <div className="mt-4 row justify-content-center">
@@ -110,6 +107,9 @@ const mapDispatchToProps = dispatch => {
     }),
     setIngredients: ingredients => dispatch({
       type: 'SET_INGREDIENTS', ingredients: ingredients
+    }),
+    setOrders: orders => dispatch({
+      type: 'SET_ORDERS', orders: orders
     })
   }
 }

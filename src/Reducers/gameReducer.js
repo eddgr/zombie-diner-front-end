@@ -87,6 +87,11 @@ function gameReducer( state = initialState, action ){
         ...state,
         ingredients: action.ingredients
       }
+    case "SET_ORDERS":
+      return {
+        ...state,
+        orders: action.orders
+      }
     default:
       return state
   }
