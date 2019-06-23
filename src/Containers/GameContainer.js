@@ -33,12 +33,17 @@ class GameContainer extends React.Component{
   }
 
   handleOrder = (event) => {
-    // this.orderClick()
+    const filterOrder = this.props.state.orders.filter(order => {
+      return order.recipe.name === event.currentTarget.dataset.name
+    })
+
+    console.log('filterOrder', filterOrder)
 
     this.setState({
       ...this.state,
       orderClicked: true,
-      orderName: event.currentTarget.dataset.name
+      orderName: event.currentTarget.dataset.name,
+      ingredients: filterOrder[0].recipe.ingredients
     })
   }
 
@@ -96,22 +101,22 @@ class GameContainer extends React.Component{
           this.state.orderClicked ? (
             <div className="order-recipe">
               <div className="container">
-                <div className="row m-2 justify-content-center">
+                <div className="row m-2 justify-content-center text-center">
                   <h2>
                     {this.state.orderName}
                   </h2>
-                  <p>These are the ingredients you need to complete this order.</p>
+                  <p>These are the ingredients you need to complete this order. Ingredient order does not matter!</p>
                 </div>
-                <div className="row justify-content-center">
-                  <div className="col">
-                    Item 1
-                  </div>
-                  <div className="col">
-                    Item 1
-                  </div>
-                  <div className="col">
-                    Item 1
-                  </div>
+                <div className="row justify-content-center text-center">
+                  {
+                    this.state.ingredients.length > 0 ? this.state.ingredients.map(ingredient => {
+                    return <div className="col-3">
+                      <img src={ingredient.image} width="100%" alt={ingredient.name} className="bg-light rounded-circle" />
+                    </div>
+                    })
+                  :
+                    null
+                  }
                 </div>
 
                 <div className="row m-2">
