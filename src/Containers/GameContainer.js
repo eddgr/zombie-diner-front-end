@@ -1,12 +1,12 @@
 import React from "react"
 import { connect } from "react-redux"
-const RECIPES_API = 'http://localhost:3001/recipes'
+const ORDERS_API = 'http://localhost:3001/recipes'
 
 const ING_API = 'http://localhost:3001/ingredients'
 
 class GameContainer extends React.Component{
   componentDidMount() {
-    fetch(RECIPES_API)
+    fetch(ORDERS_API)
       .then(r => r.json())
       .then(orders => {
         this.props.setOrders(orders)
