@@ -28,6 +28,8 @@ class GameContainer extends React.Component{
         this.props.setFoods(foods)
       })
   }
+
+  // HELPER FUNCTIONS
   generateArr = (arr) => {
     return arr.map( (item) => {
       // console.log(this.props.state.recipes)
@@ -45,20 +47,18 @@ class GameContainer extends React.Component{
           id={item.id}
           >
           {item.id}
-          {recipe ? <img src={recipe.image} alt={recipe.name} width="100%" /> : null }
+          {recipe ? <img src={recipe.image} alt={recipe.name} width="100%" /> : null}
         </div>
       )
     })
   }
-  //can add onclicks and extract out maps
+
   generateFoodsArr = (arr) => {
-    // console.log(arr)
     if (arr){
       return arr.map(item => {
         const ingredient = this.props.state.ingredients.find((ingredient) => {
           return ingredient.id === item.ingredient_id
         })
-        // console.log('this ingredient',ingredient )
         //ingredientId is referencing the ingredient that is associated with this food instance
         return(
           <div
@@ -73,7 +73,7 @@ class GameContainer extends React.Component{
       })
     }
   }
-  //extracted out generateFoodsArr
+  // end HELPER FUNCTIONS
 
   render(){
 
@@ -85,23 +85,23 @@ class GameContainer extends React.Component{
           <img src="assets/logo.png" alt="Zombie Diner" width="177px" height="32px" />
         </div>
 
-        <div className="mt-4 row justify-content-center">
-          <h2 className="col-sm-12 text-center">ORDERS</h2>
+        <div className="mt-2 row justify-content-center">
+          <h5 className="col-sm-12 text-center">ORDERS</h5>
           {this.generateArr(orders)}
         </div>
 
-        <div className="mt-4 row justify-content-center">
-          <h2 className="col-sm-12 text-center">INGREDIENTS</h2>
+        <div className="mt-2 row justify-content-center">
+          <h5 className="col-sm-12 text-center">INGREDIENTS</h5>
           {this.generateFoodsArr(foods)}
         </div>
 
-        <div className="mt-4 row justify-content-center">
-          <h2 className="col-sm-12 text-center">PLATE</h2>
+        <div className="mt-2 row justify-content-center">
+          <h5 className="col-sm-12 text-center">PLATE</h5>
           {this.generateFoodsArr(plate)}
 
           <div className="col-sm-12 text-center">
             <button
-              className="mt-4 btn-lg btn-danger"
+              className="mt-2 btn-lg btn-danger"
               onClick={() => this.props.servePlate(plate)}>
               Serve
             </button>
