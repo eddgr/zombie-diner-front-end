@@ -4,6 +4,12 @@ const ORDERS = 'http://localhost:8000/orders'
 const FOODS = 'http://localhost:8000/foods'
 
 class GameContainer extends React.Component{
+  state = {
+    orderClicked: false,
+    orderIngredients: [],
+    orderName: ''
+  }
+
   componentDidMount() {
     fetch(ORDERS)
       .then(r => r.json())
@@ -16,33 +22,65 @@ class GameContainer extends React.Component{
         this.props.setFoods(foods)
       })
   }
+
+  // HELPER FUNCTIONS
+
+  orderClick = () => {
+    this.setState({
+      ...this.state,
+      orderClicked: !this.state.orderClicked
+    })
+  }
+
+  handleOrder = (event) => {
+    const filterOrder = this.props.state.orders.filter(order => {
+      return order.recipe.name === event.currentTarget.dataset.name
+    })
+
+    console.log('filterOrder', filterOrder)
+
+    this.setState({
+      ...this.state,
+      orderClicked: true,
+      orderName: event.currentTarget.dataset.name,
+      ingredients: filterOrder[0].recipe.ingredients
+    })
+  }
+
+
+  // for Orders
   generateArr = (arr) => {
-    return arr.map( (item) => {
+    return arr.map(item => {
       //recipeId is referencing the recipe that is associated with this order instance
-      return(
+      return (
         <div
           className="col-3 text-center"
+          onClick={event => this.handleOrder(event)}
           key={item.id}
-          recipeId={item.recipe_id}
-          id={item.id}
-          >
+          data-name={item.recipe.name}
+          data-recipe-id={item.recipe_id}
+          id={item.id}>
+
           {item.id}
-          {item.recipe ? <img src={item.recipe.image} alt={item.recipe.name} width="100%" /> : null }
+
+          {
+            item.recipe ? <img src={item.recipe.image} alt={item.recipe.name} width="100%" /> : null
+          }
         </div>
       )
     })
   }
 
+  // for Ingredients and Plate
   generateFoodsArr = (arr) => {
-    // console.log(arr)
     if (arr){
       return arr.map(item => {
         //ingredientId is referencing the ingredient that is associated with this food instance
-        return(
+        return (
           <div
             className="col-3 text-center"
             key={item.id}
-            ingredientId={item.ingredient_id}
+            data-ingredient-id={item.ingredient_id}
             id={item.id}
             onClick={() => this.props.addPlate(item)}>
             {item.ingredient ? <img src={item.ingredient.image} alt={item.ingredient.name} width="100%" /> : null}
@@ -51,43 +89,79 @@ class GameContainer extends React.Component{
       })
     }
   }
+  // end HELPER FUNCTIONS
 
-  render(){
+  render() {
 
     const {foods, orders, plate } = this.props.state
-    console.log(orders)
-    return(
-      <div className="container">
-        <div className="row justify-content-center">
-          <img src="assets/logo.png" alt="Zombie Diner" width="177px" height="32px" />
-        </div>
 
-        <div className="mt-4 row justify-content-center">
-          <h2 className="col-sm-12 text-center">ORDERS</h2>
-          {this.generateArr(orders)}
-        </div>
+    return (
+      <React.Fragment>
+        {
+          this.state.orderClicked ? (
+            <div className="order-recipe">
+              <div className="container">
+                <div className="row m-2 justify-content-center text-center">
+                  <h2>
+                    {this.state.orderName}
+                  </h2>
+                  <p>These are the ingredients you need to complete this order. Ingredient order does not matter!</p>
+                </div>
+                <div className="row justify-content-center text-center">
+                  {
+                    this.state.ingredients.length > 0 ? this.state.ingredients.map(ingredient => {
+                    return <div className="col-3">
+                      <img src={ingredient.image} width="100%" alt={ingredient.name} className="bg-light rounded-circle" />
+                    </div>
+                    })
+                  :
+                    null
+                  }
+                </div>
 
-        <div className="mt-4 row justify-content-center">
-          <h2 className="col-sm-12 text-center">INGREDIENTS</h2>
-          {this.generateFoodsArr(foods)}
-        </div>
+                <div className="row m-2">
+                  <button onClick={() => this.orderClick()} className="w-100 mt-2 text-center btn btn-danger">
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          )
+          :
+          null
+        }
+        <div className="container">
 
-        <div className="mt-4 row justify-content-center">
-          <h2 className="col-sm-12 text-center">PLATE</h2>
-          {this.generateFoodsArr(plate)}
+          <div className="row justify-content-center">
+            <img src="assets/logo.png" alt="Zombie Diner" width="177px" height="32px" />
+          </div>
 
-          <div className="col-sm-12 text-center">
-            <button
-              className="mt-4 btn-lg btn-danger"
-              onClick={() => this.props.servePlate(plate)}>
-              Serve
-            </button>
+          <div className="mt-2 row justify-content-center">
+            <h5 className="col-sm-12 text-center">ORDERS</h5>
+            {this.generateArr(orders)}
+          </div>
+
+          <div className="mt-2 row justify-content-center">
+            <h5 className="col-sm-12 text-center">INGREDIENTS</h5>
+            {this.generateFoodsArr(foods)}
+          </div>
+
+          <div className="mt-2 row justify-content-center">
+            <h5 className="col-sm-12 text-center">PLATE</h5>
+            {this.generateFoodsArr(plate)}
+
+            <div className="col-sm-12 text-center">
+              <button
+                className="mt-2 btn-lg btn-danger"
+                onClick={() => this.props.servePlate(plate)}>
+                Serve
+              </button>
+            </div>
+
           </div>
 
         </div>
-
-      </div>
-
+      </React.Fragment>
     )
   }
 }

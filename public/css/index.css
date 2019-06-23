@@ -9,3 +9,17 @@ body {
 button {
   text-transform: uppercase;
 }
+
+.order-recipe {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background: #212121;
+  color: #fff;
+  opacity: 0.98;
+}
+
+.recipe-text {
+  opacity: 1;
+}
