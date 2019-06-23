@@ -1,33 +1,31 @@
-const brains = { id: 1, name: 'brains', image: 'assets/brains.svg' }
-const eyes = { id: 2, name: 'eyes', image: 'assets/eyes.svg' }
-const organs = { id: 3, name: 'organs', image: 'assets/organs.svg'  }
-const limbs = { id: 4, name: 'limbs', image: 'assets/limbs.svg'  }
-
 const initialState = {
+  // START
   gameTimer: 60,
-  // ingredients: [brains, eyes, organs, limbs],
-  ingredients: [],
-  // used as reference for food instances
-  recipes: [],
-  // used as reference for order instances
-  orders: [],
-  plate: [],
-  score: '',
-  bonusCounter: 0,
-  // bonusCounter needs 3, 3 star dishes to  add '15' seconds to the game timer
   startGame: false,
-  foods: []
-  // allows us to make multiple ingredients 
+
+  // FOOD
+  orders: [],
+  foods: [],
+  // allows us to make multiple ingredients
+  plate: [],
+
+  // SCORE
+  score: '',
+  bonusCounter: 0
+  // bonusCounter needs 3, 3 star dishes to  add '15' seconds to the game timer
 }
 
 function gameReducer( state = initialState, action ){
 
   switch (action.type) {
+
     case 'START_GAME':
       return {
         ...state,
         startGame: true
       }
+    // end START_GAME
+
     case 'ADD_PLATE':
       //remove item from ingredients,
       const foodsCopy = [...state.foods]
@@ -41,16 +39,14 @@ function gameReducer( state = initialState, action ){
         foods: filteredFood,
         plate: plateCopy
         }
+    // end ADD_PLATE
+
     case 'SERVE_PLATE':
       console.log('SERVE_PLATE')
       // match by length
       const matchedOrders = state.orders.filter(order =>{
-        debugger
-        console.log(order.foods)
         return order.ingredients.length === action.plate.length
-
-      }
-    )
+      })
       //goes through each order array and check the ingredients against what we have on the plate
       // we want a boolean return that makes sure all ingredient items are included, no extra should be present
         // .some returns boolean
@@ -82,29 +78,25 @@ function gameReducer( state = initialState, action ){
         orders: filterOrder,
         plate: []
       }
-    case "SET_INGREDIENTS":
-      return {
-        ...state,
-        ingredients: action.ingredients
-      }
+    // end SERVE_PLATE
+
     case "SET_ORDERS":
       return {
         ...state,
         orders: action.orders
       }
-    case "SET_RECIPES":
-      return {
-        ...state,
-        recipes: action.recipes
-      }
+    // end SET_ORDERS
+
     case "SET_FOODS":
       return {
         ...state,
         foods: action.foods
       }
+    // end SET_FOODS
+
     default:
       return state
-  }
+  } // end switch
 
 }
 
