@@ -1,7 +1,9 @@
 import React from "react"
 // import IngredientsContainer from 'IngredientsContainer'
 import { connect } from "react-redux"
+import IngredientsContainer from "./IngredientsContainer";
 const ORDERS_API = 'http://localhost:3001/recipes'
+
 
 
 const ING_API = 'http://localhost:3001/ingredients'
@@ -68,9 +70,10 @@ class GameContainer extends React.Component{
 
         <div className="mt-4 row justify-content-center">
           <h2 className="col-sm-12 text-center">INGREDIENTS</h2>
-          {this.generateIngredientsArr(ingredients)}
+          <IngredientsContainer
+            ingredients={this.props.state.ingredients}/>
+          {/*this.generateIngredientsArr(ingredients)*/}
         </div>
-
         <div className="mt-4 row justify-content-center">
           <h2 className="col-sm-12 text-center">PLATE</h2>
           {this.generateArr(plate)}
