@@ -57,20 +57,6 @@ class GameContainer extends React.Component{
 
   handleServe = (plate) => {
     this.props.servePlate(plate)
-
-    // if (this.props.state.orders.length < 4) {
-    //   this.fetchHelp(ORDERS)
-    //     .then(orders => {
-    //       this.props.setOrders(orders)
-    //     })
-    // }
-    //
-    // if (this.props.state.foods.length < 8) {
-    //   this.fetchHelp(FOODS)
-    //     .then(foods => {
-    //       this.props.setOrders(foods)
-    //     })
-    // }
   }
 
   handleThrow = () => {
@@ -180,7 +166,10 @@ class GameContainer extends React.Component{
                 </div>
 
                 <div className="row m-2">
-                  <button onClick={() => this.orderClick()} className="w-100 mt-2 text-center btn btn-danger">
+                  <div className="mx-auto m-2">
+                    Add them to your PLATE before you SERVE it!
+                  </div>
+                  <button onClick={() => this.orderClick()} className="w-100 mt-2 btn btn-danger">
                     Close
                   </button>
                 </div>
