@@ -7,26 +7,17 @@ const initialState = {
   gameTimer: 60,
   // ingredients: [brains, eyes, organs, limbs],
   ingredients: [],
-  orders: [
-    { id: 1,
-      name: 'brainsanwich',
-      ingredients: [brains]
-    },
-    { id: 2,
-      name: 'eyeburger',
-      ingredients: [eyes, organs] },
-    { id: 3,
-      name: 'spagehttieyesworgans',
-      ingredients: [organs] },
-    { id: 4,
-      name: 'limbkabab',
-      ingredients: [brains, eyes, limbs] }
-  ],
+  // used as reference for food instances
+  recipes: [],
+  // used as reference for order instances
+  orders: [],
   plate: [],
   score: '',
   bonusCounter: 0,
   // bonusCounter needs 3, 3 star dishes to  add '15' seconds to the game timer
-  startGame: false
+  startGame: false,
+  foods: []
+  // allows us to make multiple ingredients 
 }
 
 function gameReducer( state = initialState, action ){
@@ -39,18 +30,27 @@ function gameReducer( state = initialState, action ){
       }
     case 'ADD_PLATE':
       //remove item from ingredients,
-      const ingredientsCopy = [...state.ingredients]
-      const filteredIngredient = ingredientsCopy.filter( ingredient => {return ingredient.id !== action.ingredient.id})
+      const foodsCopy = [...state.foods]
+      const filteredFood = foodsCopy.filter( food => {
+        // debugger
+        return food.id !== action.food.id
+      })
       // add item to plate
-      const plateCopy = [...state.plate, action.ingredient]
+      const plateCopy = [...state.plate, action.food]
       return { ...state,
-        ingredients: filteredIngredient,
+        foods: filteredFood,
         plate: plateCopy
         }
     case 'SERVE_PLATE':
       console.log('SERVE_PLATE')
       // match by length
-      const matchedOrders = state.orders.filter(order => order.ingredients.length === action.plate.length)
+      const matchedOrders = state.orders.filter(order =>{
+        debugger
+        console.log(order.foods)
+        return order.ingredients.length === action.plate.length
+
+      }
+    )
       //goes through each order array and check the ingredients against what we have on the plate
       // we want a boolean return that makes sure all ingredient items are included, no extra should be present
         // .some returns boolean
@@ -91,6 +91,16 @@ function gameReducer( state = initialState, action ){
       return {
         ...state,
         orders: action.orders
+      }
+    case "SET_RECIPES":
+      return {
+        ...state,
+        recipes: action.recipes
+      }
+    case "SET_FOODS":
+      return {
+        ...state,
+        foods: action.foods
       }
     default:
       return state
