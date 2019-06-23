@@ -81,7 +81,7 @@ function gameReducer( state = initialState, action ){
     case "SET_ORDERS":
       return {
         ...state,
-        orders: [...state.orders, action.orders[0]]
+        orders: action.orders
       }
     // end SET_ORDERS
 
@@ -91,6 +91,13 @@ function gameReducer( state = initialState, action ){
         foods: action.foods
       }
     // end SET_FOODS
+
+    case "THROW_PLATE":
+      console.log("THROW_PLATE")
+      return {
+        ...state,
+        plate: []
+      }
 
     default:
       return state
