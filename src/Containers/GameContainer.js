@@ -181,7 +181,7 @@ class GameContainer extends React.Component{
         }
         <div className="container">
 
-          <div className="row justify-content-center">
+          <div className="mt-2 row justify-content-center">
             <img src="assets/logo.png" alt="Zombie Diner" width="177px" height="32px" />
           </div>
 
