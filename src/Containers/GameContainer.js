@@ -1,6 +1,8 @@
 import React from "react"
+// import IngredientsContainer from 'IngredientsContainer'
 import { connect } from "react-redux"
 const RECIPES_API = 'http://localhost:3001/recipes'
+
 
 const ING_API = 'http://localhost:3001/ingredients'
 
