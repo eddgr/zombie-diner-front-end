@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
-const ORDERS = 'http://localhost:3000/orders'
-const RECIPES_API = 'http://localhost:3000/recipes'
-const ING_API = 'http://localhost:3000/ingredients'
-const FOODS = 'http://localhost:3000/foods'
+const ORDERS = 'http://localhost:8000/orders'
+const RECIPES_API = 'http://localhost:8000/recipes'
+const ING_API = 'http://localhost:8000/ingredients'
+const FOODS = 'http://localhost:8000/foods'
 
 class GameContainer extends React.Component{
   componentDidMount() {

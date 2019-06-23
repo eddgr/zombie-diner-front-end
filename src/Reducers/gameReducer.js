@@ -44,7 +44,8 @@ function gameReducer( state = initialState, action ){
       console.log('SERVE_PLATE')
       // match by length
       const matchedOrders = state.orders.filter(order =>{
-        console.log(order)
+        debugger
+        console.log(order.foods)
         return order.ingredients.length === action.plate.length
 
       }
