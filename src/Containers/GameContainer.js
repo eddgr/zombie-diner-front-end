@@ -1,8 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
-const ORDERS_API = 'http://localhost:3000/orders'
+const ORDERS = 'http://localhost:3000/orders'
 const RECIPES_API = 'http://localhost:3000/recipes'
 const ING_API = 'http://localhost:3000/ingredients'
+const FOODS = 'http://localhost:3000/foods'
 
 class GameContainer extends React.Component{
   componentDidMount() {
@@ -11,7 +12,7 @@ class GameContainer extends React.Component{
       .then(recipes => {
         this.props.setRecipes(recipes)
       })
-    fetch(ORDERS_API)
+    fetch(ORDERS)
       .then(r => r.json())
       .then(orders => {
         this.props.setOrders(orders)
@@ -21,20 +22,20 @@ class GameContainer extends React.Component{
       .then(ingredients => {
         this.props.setIngredients(ingredients)
       })
+    fetch(FOODS)
+      .then(r => r.json())
+      .then(foods => {
+        this.props.setFoods(foods)
+      })
   }
   generateArr = (arr) => {
     return arr.map( (item) => {
-      console.log(item)
       // console.log(this.props.state.recipes)
       const recipe = this.props.state.recipes.find((recipe) => {
           return recipe.id === item.recipe_id
         })
-      console.log('it picked this one', recipe )
-      // debugger
-      //item : { id: 1,
-      //   name: 'brainsanwich',
-      //   ingredients: [brains]
-      // }
+      // made a recipe state, to reference each recipe based on id
+      // console.log('it picked this one', recipe )
       return(
         <div
           className="col-3 text-center"
@@ -50,26 +51,31 @@ class GameContainer extends React.Component{
   }
   //can add onclicks and extract out maps
   generateIngredientsArr = (arr) => {
-    return arr.map(item => {
-      return(
-        <div
-          className="col-3 text-center"
-          key={item.id}
-          id={item.id}
-          onClick={() => this.props.addPlate(item)}>
-          <img src={item.image} alt={item.name} width="100%" />
-        </div>
-      )
-    })
+    console.log(arr)
+    if (arr){
+      return arr.map(item => {
+        const ingredient = this.props.state.ingredients.find((ingredient) => {
+          return ingredient.id === item.ingredient_id
+        })
+        console.log('this ingredient',ingredient )
+        return(
+          <div
+            className="col-3 text-center"
+            key={item.id}
+            ingredientId={item.ingredient_id}
+            id={item.id}
+            onClick={() => this.props.addPlate(item)}>
+            {ingredient ? <img src={ingredient.image} alt={ingredient.name} width="100%" /> : null}
+          </div>
+        )
+      })
+    }
   }
   //extracted out generateIngredientsArr
 
-
   render(){
 
-    const {ingredients, orders, plate } = this.props.state
-
-    // console.log("GameContainer state", this.state)
+    const {foods, orders, plate } = this.props.state
 
     return(
       <div className="container">
@@ -84,7 +90,7 @@ class GameContainer extends React.Component{
 
         <div className="mt-4 row justify-content-center">
           <h2 className="col-sm-12 text-center">INGREDIENTS</h2>
-          {this.generateIngredientsArr(ingredients)}
+          {this.generateIngredientsArr(foods)}
         </div>
 
         <div className="mt-4 row justify-content-center">
@@ -129,6 +135,9 @@ const mapDispatchToProps = dispatch => {
     }),
       setRecipes: recipes => dispatch({
     type: 'SET_RECIPES', recipes: recipes
+  }),
+      setFoods: foods => dispatch({
+    type: 'SET_FOODS', foods: foods
   })
   }
 }

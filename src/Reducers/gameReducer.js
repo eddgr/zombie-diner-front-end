@@ -7,13 +7,16 @@ const initialState = {
   gameTimer: 60,
   // ingredients: [brains, eyes, organs, limbs],
   ingredients: [],
+  // used as reference for food instances
+  recipes: [],
+  // used as reference for order instances 
   orders: [],
   plate: [],
   score: '',
   bonusCounter: 0,
   // bonusCounter needs 3, 3 star dishes to  add '15' seconds to the game timer
   startGame: false,
-  recipes: []
+  foods: []
 }
 
 function gameReducer( state = initialState, action ){
@@ -83,6 +86,11 @@ function gameReducer( state = initialState, action ){
       return {
         ...state,
         recipes: action.recipes
+      }
+    case "SET_FOODS":
+      return {
+        ...state,
+        foods: action.foods
       }
     default:
       return state
