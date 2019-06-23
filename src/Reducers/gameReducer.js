@@ -81,7 +81,7 @@ function gameReducer( state = initialState, action ){
     case "SET_ORDERS":
       return {
         ...state,
-        orders: action.orders
+        orders: [...state.orders, action.orders[0]]
       }
     // end SET_ORDERS
 

@@ -50,6 +50,24 @@ class GameContainer extends React.Component{
 
   // for Orders
   generateArr = (arr) => {
+    // if current item length is < 4, show the next item every 5 seconds
+    // let x = 0
+    // while (x <= this.props.state.orders.length) {
+    //   setTimeout(() => {
+    //     console.log("SetTimeout")
+    //     fetch(ORDERS)
+    //     .then(r => r.json())
+    //     .then(orders => {
+    //       this.props.setOrders(orders)
+    //     })
+    //   }, 5000)
+    //   x+=1
+    // }
+
+    // else just show array
+
+
+    // show the first 4 array item
     return arr.map(item => {
       //recipeId is referencing the recipe that is associated with this order instance
       return (
@@ -71,7 +89,7 @@ class GameContainer extends React.Component{
     })
   }
 
-  // for Ingredients and Plate
+  // for Ingredients
   generateFoodsArr = (arr) => {
     if (arr){
       return arr.map(item => {
@@ -83,6 +101,24 @@ class GameContainer extends React.Component{
             data-ingredient-id={item.ingredient_id}
             id={item.id}
             onClick={() => this.props.addPlate(item)}>
+            {item.ingredient ? <img src={item.ingredient.image} alt={item.ingredient.name} width="100%" /> : null}
+          </div>
+        )
+      })
+    }
+  }
+
+  // for Plate
+  generatePlateArr = (arr) => {
+    if (arr){
+      return arr.map(item => {
+        //ingredientId is referencing the ingredient that is associated with this food instance
+        return (
+          <div
+            className="col-3 text-center"
+            key={item.id}
+            data-ingredient-id={item.ingredient_id}
+            id={item.id}>
             {item.ingredient ? <img src={item.ingredient.image} alt={item.ingredient.name} width="100%" /> : null}
           </div>
         )
@@ -110,7 +146,7 @@ class GameContainer extends React.Component{
                 <div className="row justify-content-center text-center">
                   {
                     this.state.ingredients.length > 0 ? this.state.ingredients.map(ingredient => {
-                    return <div className="col-3">
+                    return <div key={ingredient.id} className="col-3">
                       <img src={ingredient.image} width="100%" alt={ingredient.name} className="bg-light rounded-circle" />
                     </div>
                     })
@@ -148,11 +184,11 @@ class GameContainer extends React.Component{
 
           <div className="mt-2 row justify-content-center">
             <h5 className="col-sm-12 text-center">PLATE</h5>
-            {this.generateFoodsArr(plate)}
+            {this.generatePlateArr(plate)}
 
             <div className="col-sm-12 text-center">
               <button
-                className="mt-2 btn-lg btn-danger"
+                className="mt-2 btn btn-danger"
                 onClick={() => this.props.servePlate(plate)}>
                 Serve
               </button>
