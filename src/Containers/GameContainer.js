@@ -50,14 +50,14 @@ class GameContainer extends React.Component{
     })
   }
   //can add onclicks and extract out maps
-  generateIngredientsArr = (arr) => {
-    console.log(arr)
+  generateFoodsArr = (arr) => {
+    // console.log(arr)
     if (arr){
       return arr.map(item => {
         const ingredient = this.props.state.ingredients.find((ingredient) => {
           return ingredient.id === item.ingredient_id
         })
-        console.log('this ingredient',ingredient )
+        // console.log('this ingredient',ingredient )
         return(
           <div
             className="col-3 text-center"
@@ -71,12 +71,12 @@ class GameContainer extends React.Component{
       })
     }
   }
-  //extracted out generateIngredientsArr
+  //extracted out generateFoodsArr
 
   render(){
 
     const {foods, orders, plate } = this.props.state
-
+    console.log(orders)
     return(
       <div className="container">
         <div className="row justify-content-center">
@@ -90,12 +90,12 @@ class GameContainer extends React.Component{
 
         <div className="mt-4 row justify-content-center">
           <h2 className="col-sm-12 text-center">INGREDIENTS</h2>
-          {this.generateIngredientsArr(foods)}
+          {this.generateFoodsArr(foods)}
         </div>
 
         <div className="mt-4 row justify-content-center">
           <h2 className="col-sm-12 text-center">PLATE</h2>
-          {this.generateArr(plate)}
+          {this.generateFoodsArr(plate)}
 
           <div className="col-sm-12 text-center">
             <button
@@ -121,8 +121,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPlate: ingredient => dispatch({
-      type: 'ADD_PLATE', ingredient: ingredient
+    addPlate: food => dispatch({
+      type: 'ADD_PLATE', food: food
     }),
     servePlate: plate => dispatch({
       type: 'SERVE_PLATE', plate: plate
