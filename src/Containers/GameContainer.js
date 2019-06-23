@@ -36,6 +36,7 @@ class GameContainer extends React.Component{
         })
       // made a recipe state, to reference each recipe based on id
       // console.log('it picked this one', recipe )
+      //recipeId is referencing the recipe that is associated with this order instance
       return(
         <div
           className="col-3 text-center"
@@ -44,7 +45,7 @@ class GameContainer extends React.Component{
           id={item.id}
           >
           {item.id}
-          {recipe ? <img src={recipe.image} alt={recipe.name} width="100%" />: null }
+          {recipe ? <img src={recipe.image} alt={recipe.name} width="100%" /> : null }
         </div>
       )
     })
@@ -58,6 +59,7 @@ class GameContainer extends React.Component{
           return ingredient.id === item.ingredient_id
         })
         // console.log('this ingredient',ingredient )
+        //ingredientId is referencing the ingredient that is associated with this food instance
         return(
           <div
             className="col-3 text-center"

@@ -17,6 +17,7 @@ const initialState = {
   // bonusCounter needs 3, 3 star dishes to  add '15' seconds to the game timer
   startGame: false,
   foods: []
+  // allows us to make multiple ingredients 
 }
 
 function gameReducer( state = initialState, action ){
