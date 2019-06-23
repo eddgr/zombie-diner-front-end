@@ -55,7 +55,7 @@ class GameContainer extends React.Component{
   render(){
 
     const {foods, orders, plate } = this.props.state
-    console.log(orders)
+    // console.log(orders)
     return(
       <div className="container">
         <div className="row justify-content-center">
