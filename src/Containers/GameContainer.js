@@ -1,11 +1,16 @@
 import React from "react"
 import { connect } from "react-redux"
-const ORDERS_API = 'http://localhost:3001/recipes'
-
-const ING_API = 'http://localhost:3001/ingredients'
+const ORDERS_API = 'http://localhost:3000/orders'
+const RECIPES_API = 'http://localhost:3000/recipes'
+const ING_API = 'http://localhost:3000/ingredients'
 
 class GameContainer extends React.Component{
   componentDidMount() {
+    fetch(RECIPES_API)
+      .then(r => r.json())
+      .then(recipes => {
+        this.props.setRecipes(recipes)
+      })
     fetch(ORDERS_API)
       .then(r => r.json())
       .then(orders => {
@@ -19,13 +24,26 @@ class GameContainer extends React.Component{
   }
   generateArr = (arr) => {
     return arr.map( (item) => {
+      console.log(item)
+      // console.log(this.props.state.recipes)
+      const recipe = this.props.state.recipes.find((recipe) => {
+          return recipe.id === item.recipe_id
+        })
+      console.log('it picked this one', recipe )
+      // debugger
+      //item : { id: 1,
+      //   name: 'brainsanwich',
+      //   ingredients: [brains]
+      // }
       return(
         <div
           className="col-3 text-center"
           key={item.id}
+          recipeId={item.recipe_id}
           id={item.id}
           >
-          <img src={item.image} alt={item.name} width="100%" />
+          {item.id}
+          {recipe ? <img src={recipe.image} alt={recipe.name} width="100%" />: null }
         </div>
       )
     })
@@ -51,7 +69,7 @@ class GameContainer extends React.Component{
 
     const {ingredients, orders, plate } = this.props.state
 
-    console.log("GameContainer state", this.state)
+    // console.log("GameContainer state", this.state)
 
     return(
       <div className="container">
@@ -106,9 +124,12 @@ const mapDispatchToProps = dispatch => {
     setIngredients: ingredients => dispatch({
       type: 'SET_INGREDIENTS', ingredients: ingredients
     }),
-    setOrders: orders => dispatch({
+      setOrders: orders => dispatch({
       type: 'SET_ORDERS', orders: orders
-    })
+    }),
+      setRecipes: recipes => dispatch({
+    type: 'SET_RECIPES', recipes: recipes
+  })
   }
 }
 
