@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
-const ORDERS = 'http://localhost:8000/orders'
-const FOODS = 'http://localhost:8000/foods'
+const ORDERS = 'https://zombie-diner-backend.herokuapp.com/orders'
+const FOODS = 'https://zombie-diner-backend.herokuapp.com/foods'
 
 let ingLength = 8
 

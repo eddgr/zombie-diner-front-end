@@ -7,6 +7,8 @@ Zombies are hungry, clear all the food orders by adding the right ingredients to
 
 Can you clear all the orders before the time runs out?
 
+Demo - https://zombie-diner.herokuapp.com
+
 # Team
 - [Jacob](https://www.github.com/jacolam)
 - [Will](https://www.github.com/willsinn)
