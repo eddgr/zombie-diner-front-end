@@ -1,6 +1,6 @@
 # Zombie Diner
 
-Zombie Diner was created for Flatiron School's 2019 Gam Jam and won "Funniest Game".
+Zombie Diner was built in two days for Flatiron School's 2019 Gam Jam and won "Funniest Game".
 
 # How To Play
 Zombies are hungry, clear all the food orders by adding the right ingredients to the plate before serving them.
