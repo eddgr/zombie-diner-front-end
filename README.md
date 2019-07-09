@@ -9,6 +9,8 @@ Can you clear all the orders before the time runs out?
 
 Demo - https://zombie-diner.herokuapp.com
 
+![](zombie-diner.gif)
+
 # Team
 - [Jacob](https://www.github.com/jacolam)
 - [Will](https://www.github.com/willsinn)
